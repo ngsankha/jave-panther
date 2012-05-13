@@ -833,9 +833,7 @@ public class Encoder {
                                 ffmpeg.addArgument("-sameq");
                         //if both audio and video arguments are missing then proceed with the conversion and check if same quality is to be used
 		}
-		if (videoAttributes == null) {
-			ffmpeg.addArgument("-vn");
-		} else {
+		if (videoAttributes != null) {
 			String codec = videoAttributes.getCodec();
 			if (codec != null) {
 				ffmpeg.addArgument("-vcodec");
@@ -863,9 +861,7 @@ public class Encoder {
 						+ String.valueOf(size.getHeight()));
 			}
 		}
-		if (audioAttributes == null) {
-			ffmpeg.addArgument("-an");
-		} else {
+		if (audioAttributes != null) {
 			String codec = audioAttributes.getCodec();
 			if (codec != null) {
 				ffmpeg.addArgument("-acodec");
