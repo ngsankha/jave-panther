@@ -19,6 +19,7 @@
 package it.sauronsoftware.jave;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Attributes controlling the encoding process.
@@ -34,6 +35,11 @@ public class EncodingAttributes implements Serializable {
 	 * format is supported (see {@link Encoder#getSupportedEncodingFormats()}.
 	 */
 	private String format = null;
+        
+        /*
+         * List that maintains custom attributes
+         */
+        private ArrayList custom=new ArrayList();
         
         /*
          * The variable that implies whether same quality as the source file will be used for the conversion process.
@@ -95,6 +101,14 @@ public class EncodingAttributes implements Serializable {
 	Float getOffset() {
 		return offset;
 	}
+        
+        /*
+         * Returns the list of any custom attributes that will be passed onto ffmpeg
+         * @return the list containing the custom attributes
+         */
+        ArrayList getCustomAttributes() {
+            return custom;
+        }
 
 	/**
 	 * Sets the start offset time (seconds). If null or not specified no start
@@ -135,6 +149,14 @@ public class EncodingAttributes implements Serializable {
          */
         public void setSameQuality(boolean sameQuality) {
                 this.sameQuality=sameQuality;
+        }
+        
+        /*
+         * adds a custom attribute to the conversion process
+         * @param attribute the custom attribute that you want to pass onto ffmpeg
+         */
+        public void addAttribute(String attribute) {
+                custom.add(attribute);
         }
 
 	/**

@@ -888,8 +888,17 @@ public class Encoder {
 				ffmpeg.addArgument(String.valueOf(volume.intValue()));
 			}
 		}
-		ffmpeg.addArgument("-f");
-		ffmpeg.addArgument(formatAttribute);
+                
+                //do not add the format attribute if it is empty
+		if (formatAttribute!=null){
+                    ffmpeg.addArgument("-f");
+                    ffmpeg.addArgument(formatAttribute);
+                }
+                
+                ArrayList custom=attributes.getCustomAttributes();
+                for (int i=0; i<custom.size(); i++)
+                        ffmpeg.addArgument((String) custom.get(i));
+                        
 		ffmpeg.addArgument("-y");
 		ffmpeg.addArgument(target.getAbsolutePath());
 		try {
