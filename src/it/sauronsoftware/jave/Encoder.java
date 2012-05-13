@@ -814,10 +814,7 @@ public class Encoder {
 		Float durationAttribute = attributes.getDuration();
 		AudioAttributes audioAttributes = attributes.getAudioAttributes();
 		VideoAttributes videoAttributes = attributes.getVideoAttributes();
-		if (audioAttributes == null && videoAttributes == null) {
-			throw new IllegalArgumentException(
-					"Both audio and video attributes are null");
-		}
+		
 		target = target.getAbsoluteFile();
 		target.getParentFile().mkdirs();
 		FFMPEGExecutor ffmpeg = locator.createExecutor();
@@ -830,6 +827,10 @@ public class Encoder {
 		if (durationAttribute != null) {
 			ffmpeg.addArgument("-t");
 			ffmpeg.addArgument(String.valueOf(durationAttribute.floatValue()));
+		}
+                if (audioAttributes == null && videoAttributes == null) {
+			ffmpeg.addArgument("-sameq");
+                        //if both audio and video arguments are missing then proceed with the conversion with the same quality parameter
 		}
 		if (videoAttributes == null) {
 			ffmpeg.addArgument("-vn");
