@@ -71,25 +71,8 @@ public class DefaultFFMPEGLocator extends FFMPEGLocator {
 		if (!exe.exists()) {
 			copyFile("ffmpeg" + suffix, exe);
 		}
-		// pthreadGC2.dll
-		if (isWindows) {
-			File dll = new File(temp, "pthreadGC2.dll");
-			if (!dll.exists()) {
-				copyFile("pthreadGC2.dll", dll);
-			}
-		}
-		// Need a chmod?
-		if (!isWindows) {
-			Runtime runtime = Runtime.getRuntime();
-			try {
-				runtime.exec(new String[] { "/bin/chmod", "755",
-						exe.getAbsolutePath() });
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 		// Ok.
-		this.path = exe.getAbsolutePath();
+		this.path = isWindows ? exe.getAbsolutePath() : "ffmpeg";
 	}
 
 	protected String getFFMPEGExecutablePath() {
@@ -104,7 +87,7 @@ public class DefaultFFMPEGLocator extends FFMPEGLocator {
 	 * @param dest
 	 *            The destination.
 	 * @throws RuntimeException
-	 *             If aun unexpected error occurs.
+	 *             If an unexpected error occurs.
 	 */
 	private void copyFile(String path, File dest) throws RuntimeException {
 		InputStream input = null;
