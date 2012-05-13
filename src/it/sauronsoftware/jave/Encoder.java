@@ -829,8 +829,9 @@ public class Encoder {
 			ffmpeg.addArgument(String.valueOf(durationAttribute.floatValue()));
 		}
                 if (audioAttributes == null && videoAttributes == null) {
-			ffmpeg.addArgument("-sameq");
-                        //if both audio and video arguments are missing then proceed with the conversion with the same quality parameter
+                        if (attributes.getSameQuality())
+                                ffmpeg.addArgument("-sameq");
+                        //if both audio and video arguments are missing then proceed with the conversion and check if same quality is to be used
 		}
 		if (videoAttributes == null) {
 			ffmpeg.addArgument("-vn");

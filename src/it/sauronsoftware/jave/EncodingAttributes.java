@@ -34,6 +34,11 @@ public class EncodingAttributes implements Serializable {
 	 * format is supported (see {@link Encoder#getSupportedEncodingFormats()}.
 	 */
 	private String format = null;
+        
+        /*
+         * The variable that implies whether same quality as the source file will be used for the conversion process.
+         */
+        private boolean sameQuality=false;
 
 	/**
 	 * The start offset time (seconds). If null or not specified no start offset
@@ -122,6 +127,15 @@ public class EncodingAttributes implements Serializable {
 	public void setDuration(Float duration) {
 		this.duration = duration;
 	}
+        
+        /*
+         * Sets the quality of the encoding process to match the original file
+         * 
+         * @param sameQuality true if the quality of conversion will be the same false otherwise
+         */
+        public void setSameQuality(boolean sameQuality) {
+                this.sameQuality=sameQuality;
+        }
 
 	/**
 	 * Returns the attributes for the encoding of the audio stream in the target
@@ -134,7 +148,16 @@ public class EncodingAttributes implements Serializable {
 		return audioAttributes;
 	}
 
-	/**
+	/*
+         * gets whether the same quality will be used during the conversion process
+         * 
+         * @return true is same quality wll be used, false otherwise
+         */
+        boolean getSameQuality() {
+            return sameQuality;
+        }
+        
+        /**
 	 * Sets the attributes for the encoding of the audio stream in the target
 	 * multimedia file. If null of not specified no audio stream will be
 	 * encoded. It cannot be null if also the video field is null.
